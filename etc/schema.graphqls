@@ -1,0 +1,183 @@
+# Mageplaza
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Mageplaza.com license that is
+# available through the world-wide-web at this URL:
+# https://www.mageplaza.com/LICENSE.txt
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category    Mageplaza
+# @package     Mageplaza_GiftCardGraphQl
+# @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+# @license     https://www.mageplaza.com/LICENSE.txt
+
+type Query {
+    mpGiftCardCode (
+        filter: GiftCodeFilterInput @doc(description: "Identifies which fields to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. The default value is 20."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ): GiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCodes") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
+    mpGiftCardPool (
+        filter: GiftPoolFilterInput @doc(description: "Identifies which fields to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. The default value is 20."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ): GiftPoolOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftPools") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
+    mpGiftCardTemplate (
+        filter: GiftTemplateFilterInput @doc(description: "Identifies which fields to search for and return."),
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. The default value is 20."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
+    ): GiftTemplateOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftTemplates") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
+}
+
+input GiftCodeFilterInput @doc(description: "Defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
+    giftcard_id: FilterTypeInput
+    code: FilterTypeInput
+    pattern: FilterTypeInput
+    init_balance: FilterTypeInput
+    balance: FilterTypeInput
+    status: FilterTypeInput
+    can_redeem: FilterTypeInput
+    store_id: FilterTypeInput
+    pool_id: FilterTypeInput
+    template_id: FilterTypeInput
+    image: FilterTypeInput
+    template_fields: FilterTypeInput
+    customer_ids: FilterTypeInput
+    order_item_id: FilterTypeInput
+    order_increment_id: FilterTypeInput
+    delivery_method: FilterTypeInput
+    delivery_address: FilterTypeInput
+    is_sent: FilterTypeInput
+    delivery_date: FilterTypeInput
+    timezone: FilterTypeInput
+    extra_content: FilterTypeInput
+    expired_at: FilterTypeInput
+    created_at: FilterTypeInput
+}
+
+input GiftPoolFilterInput @doc(description: "Defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
+    pool_id: FilterTypeInput
+    name: FilterTypeInput
+    status: FilterTypeInput
+    can_inherit: FilterTypeInput
+    pattern: FilterTypeInput
+    balance: FilterTypeInput
+    can_redeem: FilterTypeInput
+    store_id: FilterTypeInput
+    template_id: FilterTypeInput
+    image: FilterTypeInput
+    template_fields: FilterTypeInput
+    expired_at: FilterTypeInput
+    created_at: FilterTypeInput
+}
+
+input GiftTemplateFilterInput @doc(description: "Defines the filters to be used in the search. A filter contains at least one attribute, a comparison operator, and the value that is being searched for.") {
+    template_id: FilterTypeInput
+    name: FilterTypeInput
+    status: FilterTypeInput
+    can_upload: FilterTypeInput
+    title: FilterTypeInput
+    font_family: FilterTypeInput
+    background_image: FilterTypeInput
+    design: FilterTypeInput
+    note: FilterTypeInput
+    images: FilterTypeInput
+    created_at: FilterTypeInput
+}
+
+type GiftCodeOutput @doc(description:"Comment ...") {
+    total_count: Int @doc(description: "The number of items returned.")
+    items: [GiftCodeDetails] @doc(description: "An array of items that match the specified search criteria.")
+    page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
+}
+
+type GiftPoolOutput @doc(description:"Comment ...") {
+    total_count: Int @doc(description: "The number of items returned.")
+    items: [GiftPoolDetails] @doc(description: "An array of items that match the specified search criteria.")
+    page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
+}
+
+type GiftTemplateOutput @doc(description:"Comment ...") {
+    total_count: Int @doc(description: "The number of items returned.")
+    items: [GiftTemplateDetails] @doc(description: "An array of items that match the specified search criteria.")
+    page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
+}
+
+type GiftCodeDetails @doc(description: "Comment ...")
+{
+    giftcard_id: Int
+    code: String
+    pattern: String
+    init_balance: Float
+    balance: Float
+    status: String
+    can_redeem: String
+    store_id: String
+    pool_id: String
+    template_id: String
+    image: String
+    template_fields: GiftCardTemplateFields
+    customer_ids: String
+    order_item_id: String
+    order_increment_id: String
+    delivery_method: String
+    delivery_address: String
+    is_sent: String
+    delivery_date: String
+    timezone: String
+    extra_content: String
+    expired_at: String
+    created_at: String
+}
+
+type GiftPoolDetails @doc(description: "Comment ...")
+{
+    pool_id: Int
+    name: String
+    status: String
+    can_inherit: String
+    pattern: String
+    balance: Float
+    can_redeem: String
+    store_id: String
+    template_id: String
+    image: String
+    template_fields: GiftCardTemplateFields
+    expired_at: String
+    created_at: String
+}
+
+type GiftTemplateDetails @doc(description: "Comment ...")
+{
+    template_id: Int
+    name: String
+    status: String
+    can_upload: String
+    title: String
+    font_family: String
+    background_image: String
+    design: String
+    note: String
+    images: String
+    created_at: String
+}
+
+type GiftCardTemplateFields @doc(description: "Comment ...") {
+    sender: String
+    recipient: String
+    message: String
+}
+
+type PageInfo {
+    pageSize: Int @doc(description: "How many items should show on the page.")
+    currentPage: Int @doc(description: "Specifies which page of results to return.")
+    hasNextPage: Boolean @doc(description: "Has next page.")
+    hasPreviousPage: Boolean @doc(description: "Has previous page.")
+    startPage: Int @doc(description: "Start page.")
+    endPage: Int @doc(description: "End page.")
+}
