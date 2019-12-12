@@ -18,7 +18,7 @@
 
 type Query {
     mpGiftCode (
-        id: Int! @doc(description: "Comment ..."),
+        id: Int! @doc(description: "Specifies the gift code id to search for."),
     ): GiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftCode") @doc(description: "Searches for an item that matches the id.")
     mpGiftCodeList (
         filter: GiftCodeFilterInput! @doc(description: "Identifies which fields to search for and return."),
@@ -26,7 +26,7 @@ type Query {
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
     ): GiftCodeListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GetList\\GiftCode") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
     mpGiftPool (
-        id: Int! @doc(description: "Comment ..."),
+        id: Int! @doc(description: "Specifies the gift pool id to search for."),
     ): GiftPoolOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftPool") @doc(description: "Searches for an item that matches the id.")
     mpGiftPoolList (
         filter: GiftPoolFilterInput! @doc(description: "Identifies which fields to search for and return."),
@@ -34,7 +34,7 @@ type Query {
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
     ): GiftPoolListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftPool") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
     mpGiftTemplate (
-        id: Int! @doc(description: "Comment ..."),
+        id: Int! @doc(description: "Specifies the gift template id to search for."),
     ): GiftTemplateOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftTemplate") @doc(description: "Searches for an item that matches the id.")
     mpGiftTemplateList (
         filter: GiftTemplateFilterInput! @doc(description: "Identifies which fields to search for and return."),
@@ -44,32 +44,44 @@ type Query {
 }
 
 type Mutation {
-    mpGiftCodeSave (input: GiftCodeInput!): GiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftCode") @doc(description: "Save gift code")
-    mpGiftPoolSave (input: GiftPoolInput!): GiftPoolOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftPool") @doc(description: "Save gift pool")
-    mpGiftTemplateSave (input: GiftTemplateInput!): GiftTemplateOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftTemplate") @doc(description: "Save gift template")
-    mpGiftCodeDelete (id: Int!): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftCode") @doc(description: "Delete gift code")
-    mpGiftPoolDelete (id: Int!): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftPool") @doc(description: "Delete gift pool")
-    mpGiftTemplateDelete (id: Int!): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftTemplate") @doc(description: "Delete gift template")
+    mpGiftCodeSave (
+        input: GiftCodeInput! @doc(description: "Specifies which fields to change. If 'giftcard_id' is presented, the gift code will be updated, otherwise create new gift code.")
+    ): GiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftCode") @doc(description: "Save gift code")
+    mpGiftPoolSave (
+        input: GiftPoolInput! @doc(description: "Specifies which fields to change. If 'pool_id' is presented, the gift pool will be updated, otherwise create new gift pool.")
+    ): GiftPoolOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftPool") @doc(description: "Save gift pool")
+    mpGiftTemplateSave (
+        input: GiftTemplateInput! @doc(description: "Specifies which fields to change. If 'template_id' is presented, the gift template will be updated, otherwise create new gift template.")
+    ): GiftTemplateOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Save\\GiftTemplate") @doc(description: "Save gift template")
+    mpGiftCodeDelete (
+        id: Int! @doc(description: "Specifies the gift code id to search for and delete.")
+    ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftCode") @doc(description: "Delete gift code")
+    mpGiftPoolDelete (
+        id: Int! @doc(description: "Specifies the gift pool id to search for and delete.")
+    ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftPool") @doc(description: "Delete gift pool")
+    mpGiftTemplateDelete (
+        id: Int! @doc(description: "Specifies the gift template id to search for and delete.")
+    ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftTemplate") @doc(description: "Delete gift template")
     mpGiftPoolGenerate (
-        id: Int!,
-        pattern: String!,
-        qty: Int = 1
+        id: Int! @doc(description: "Specifies the gift template id to search for and generate."),
+        pattern: String! @doc(description: "Specifies the gift code pattern."),
+        qty: Int = 1 @doc(description: "How many gift codes will be generated.")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftPoolGenerate") @doc(description: "Generate gift code from gift pool")
     mpGiftCardSetCode (
-        cartId: Int!,
-        code: String!
+        cartId: Int! @doc(description: "Specifies the quote id to search for and apply the gift code."),
+        code: String! @doc(description: "Specifies what gift code will be applied.")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\SetGiftCode") @doc(description: "Apply gift card code")
     mpGiftCardRemoveCode (
-        cartId: Int!,
-        code: String!
+        cartId: Int! @doc(description: "Specifies the quote id to search for and remove the gift code."),
+        code: String! @doc(description: "Specifies what gift code will be removed")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\RemoveGiftCode") @doc(description: "Remove gift card code")
     mpGiftCardSetCredit (
-        cartId: Int!,
-        amount: String!
+        cartId: Int! @doc(description: "Specifies the quote id to search for and set the gift credit."),
+        amount: String! @doc(description: "Specifies how much gift credit will be applied.")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\SetGiftCredit") @doc(description: "Apply gift credit amount")
     mpGiftCardRedeem (
-        customerId: Int!,
-        code: String!
+        customerId: Int! @doc(description: "Specifies the customer id to search for and redeem the gift code."),
+        code: String! @doc(description: "Specifies what gift code will be redeemed.")
     ): GiftCardRedeemDetail @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\Redeem") @doc(description: "Redeem gift card code for customer")
 }
 
@@ -130,139 +142,139 @@ input GiftTemplateFilterInput @doc(description: "Defines the filters to be used 
 }
 
 input GiftCodeInput {
-    giftcard_id: Int
-    pattern: String
-    init_balance: Float
-    balance: Float
-    status: String
-    can_redeem: String
-    store_id: String
-    pool_id: String
-    template_id: String
-    image: String
-    template_fields: String
+    giftcard_id: Int @doc(description: "Gift card ID that is used to identify the gift card.")
+    pattern: String @doc(description: "Gift code pattern.")
+    init_balance: Float @doc(description: "Initial balance of the gift card.")
+    balance: Float @doc(description: "Current balance of the gift card.")
+    status: String @doc(description: "Is the gift card enable?")
+    can_redeem: String @doc(description: "Is the gift card redeemable?")
+    store_id: String @doc(description: "Specifies which store the gift card is available at.")
+    pool_id: String @doc(description: "Pool id that the gift code belongs to.")
+    template_id: String @doc(description: "Template id that is used for the gift card.")
+    image: String @doc(description: "Relative image path.")
+    template_fields: String @doc(description: "Json encoded template fields.")
     #    customer_ids: String
     #    order_item_id: String
     #    order_increment_id: String
-    delivery_method: String
-    delivery_address: String
-    is_sent: String
-    delivery_date: String
-    timezone: String
-    extra_content: String
-    expired_at: String
+    delivery_method: String @doc(description: "Delivery methods, values: 1 - Email, 2 - Text Message, 3 - Print At Home, 4 - Post Office.")
+    delivery_address: String @doc(description: "Delivery address that includes email or phone number.")
+    is_sent: String @doc(description: "Is gift card sent to recipient?")
+    delivery_date: String @doc(description: "The date that the sender wants the gift card to be sent.")
+    timezone: String @doc(description: "Timezone for the gift card delivery date.")
+    extra_content: String @doc(description: "Extra content.")
+    expired_at: String @doc(description: "The date that the gift code is expired.")
 }
 
 input GiftPoolInput {
-    pool_id: Int
-    name: String
-    status: String
-    can_inherit: String
-    pattern: String
-    balance: Float
-    can_redeem: String
-    store_id: String
-    template_id: String
-    image: String
-    template_fields: String
-    expired_at: String
+    pool_id: Int @doc(description: "Gift pool ID that is used to identify the gift pool.")
+    name: String @doc(description: "Gift pool name.")
+    status: String @doc(description: "Gift card status.")
+    can_inherit: String @doc(description: "Is the gift pool's properties applied for its gift cards?")
+    pattern: String @doc(description: "Gift code pattern.")
+    balance: Float @doc(description: "Balance of the gift cards that will bed generated.")
+    can_redeem: String @doc(description: "Is the gift card redeemable?")
+    store_id: String @doc(description: "Specifies which store the gift card is available at.")
+    template_id: String @doc(description: "Template id that is used for the gift card.")
+    image: String @doc(description: "Relative image path.")
+    template_fields: String @doc(description: "Json encoded template fields.")
+    expired_at: String @doc(description: "The date that the gift code is expired.")
 }
 
 input GiftTemplateInput {
-    template_id: Int
-    name: String
-    status: String
-    can_upload: String
-    title: String
-    font_family: String
-    background_image: String
-    design: String
-    note: String
-    images: String
+    template_id: Int @doc(description: "Gift template ID that is used to identify the gift template.")
+    name: String @doc(description: "Gift template name.")
+    status: String @doc(description: "Gift template status.")
+    can_upload: String @doc(description: "Can customers upload images when using this gift template?")
+    title: String @doc(description: "Gift card title.")
+    font_family: String @doc(description: "Font family for the content of the gift template.")
+    background_image: String @doc(description: "Background image")
+    design: String @doc(description: "CSS style")
+    note: String @doc(description: "Note that can be displayed on the gift template.")
+    images: String @doc(description: "Array contains relative path, label and position of images belonged to the gift template.")
 }
 
-type GiftCodeListOutput @doc(description:"Comment ...") {
+type GiftCodeListOutput {
     total_count: Int @doc(description: "The number of items returned.")
     items: [GiftCodeOutput] @doc(description: "An array of items that match the specified search criteria.")
     page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
 }
 
-type GiftPoolListOutput @doc(description:"Comment ...") {
+type GiftPoolListOutput {
     total_count: Int @doc(description: "The number of items returned.")
     items: [GiftPoolOutput] @doc(description: "An array of items that match the specified search criteria.")
     page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
 }
 
-type GiftTemplateListOutput @doc(description:"Comment ...") {
+type GiftTemplateListOutput {
     total_count: Int @doc(description: "The number of items returned.")
     items: [GiftTemplateOutput] @doc(description: "An array of items that match the specified search criteria.")
     page_info: PageInfo @doc(description: "An object that includes the pageSize and currentPage values specified in the query.")
 }
 
-type GiftCodeOutput @doc(description: "Comment ...") {
-    giftcard_id: Int
-    code: String
-    pattern: String
-    init_balance: Float
-    balance: Float
-    status: String
-    can_redeem: String
-    store_id: String
-    pool_id: String
-    template_id: String
-    image: String
-    template_fields: GiftCardTemplateFields
-    customer_ids: String
-    order_item_id: String
-    order_increment_id: String
-    delivery_method: String
-    delivery_address: String
-    is_sent: String
-    delivery_date: String
-    timezone: String
-    extra_content: String
-    expired_at: String
-    created_at: String
+type GiftCodeOutput {
+    giftcard_id: Int @doc(description: "Gift card ID that is used to identify the gift card.")
+    code: String @doc(description: "Gift code")
+    pattern: String @doc(description: "Gift code pattern.")
+    init_balance: Float @doc(description: "Initial balance of the gift card.")
+    balance: Float @doc(description: "Current balance of the gift card.")
+    status: String @doc(description: "Is the gift card enable?")
+    can_redeem: String @doc(description: "Is the gift card redeemable?")
+    store_id: String @doc(description: "Specifies which store the gift card is available at.")
+    pool_id: String @doc(description: "Pool id that the gift code belongs to.")
+    template_id: String @doc(description: "Template id that is used for the gift card.")
+    image: String @doc(description: "Relative image path.")
+    template_fields: GiftCardTemplateFields @doc(description: "Json encoded template fields.")
+    customer_ids: String @doc(description: "Customers that redeemed the gift card")
+    order_item_id: String @doc(description: "Specifies what gift card product generates the gift card.")
+    order_increment_id: String @doc(description: "Specifies what order contains the gift card product.")
+    delivery_method: String @doc(description: "Delivery methods, values: 1 - Email, 2 - Text Message, 3 - Print At Home, 4 - Post Office.")
+    delivery_address: String @doc(description: "Delivery address that includes email or phone number.")
+    is_sent: String @doc(description: "Is gift card sent to recipient?")
+    delivery_date: String @doc(description: "The date that the sender wants the gift card to be sent.")
+    timezone: String @doc(description: "Timezone for the gift card delivery date.")
+    extra_content: String @doc(description: "Extra content.")
+    expired_at: String @doc(description: "The date that the gift code is expired.")
+    created_at: String @doc(description: "Timestamp indicating when the entity was created.")
 }
 
-type GiftPoolOutput @doc(description: "Comment ...") {
-    pool_id: Int
-    name: String
-    status: String
-    can_inherit: String
-    pattern: String
-    balance: Float
-    can_redeem: String
-    store_id: String
-    template_id: String
-    image: String
-    template_fields: GiftCardTemplateFields
-    expired_at: String
-    created_at: String
+type GiftPoolOutput {
+    pool_id: Int @doc(description: "Gift pool ID that is used to identify the gift pool.")
+    name: String @doc(description: "Gift pool name.")
+    status: String @doc(description: "Gift card status.")
+    can_inherit: String @doc(description: "Is the gift pool's properties applied for its gift cards?")
+    pattern: String @doc(description: "Gift code pattern.")
+    balance: Float @doc(description: "Balance of the gift cards that will bed generated.")
+    can_redeem: String @doc(description: "Is the gift card redeemable?")
+    store_id: String @doc(description: "Specifies which store the gift card is available at.")
+    template_id: String @doc(description: "Template id that is used for the gift card.")
+    image: String @doc(description: "Relative image path.")
+    template_fields: GiftCardTemplateFields @doc(description: "Json encoded template fields.")
+    expired_at: String @doc(description: "The date that the gift code is expired.")
+    created_at: String @doc(description: "Timestamp indicating when the entity was created.")
 }
 
-type GiftTemplateOutput @doc(description: "Comment ...") {
-    template_id: Int
-    name: String
-    status: String
-    can_upload: String
-    title: String
-    font_family: String
-    background_image: String
-    design: String
-    note: String
-    images: String
-    created_at: String
+type GiftTemplateOutput {
+    template_id: Int @doc(description: "Gift template ID that is used to identify the gift template.")
+    name: String @doc(description: "Gift template name.")
+    status: String @doc(description: "Gift template status.")
+    can_upload: String @doc(description: "Can customers upload images when using this gift template?")
+    title: String @doc(description: "Gift card title.")
+    font_family: String @doc(description: "Font family for the content of the gift template.")
+    background_image: String @doc(description: "Background image")
+    design: String @doc(description: "CSS style")
+    note: String @doc(description: "Note that can be displayed on the gift template.")
+    images: String @doc(description: "Array contains relative path, label and position of images belonged to the gift template.")
+    created_at: String @doc(description: "Timestamp indicating when the entity was created.")
 }
 
-type GiftCardTemplateFields @doc(description: "Comment ...") {
-    sender: String
-    recipient: String
-    message: String
+type GiftCardTemplateFields {
+    sender: String @doc(description: "Sender who gifts the gift card. This sender's name will be displayed on the gift card.")
+    recipient: String @doc(description: "Recipient who receives the gift card. This recipient's name will be displayed on the gift card.")
+    message: String @doc(description: "Message that is displayed on the gift card.")
 }
 
-type GiftCardRedeemDetail @doc(description: "Comment ...") {
-    customer_balance: String
+type GiftCardRedeemDetail {
+    customer_balance: String @doc(description: "Customer's balance after redeeming gift code.")
 }
 
 type PageInfo {
