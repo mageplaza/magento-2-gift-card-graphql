@@ -54,7 +54,7 @@ class FilterArgument implements FieldEntityAttributesInterface
     {
         $fields = [];
 
-        $elements = ['GiftCodeDetails', 'GiftPoolDetails', 'GiftTemplateDetails'];
+        $elements = ['GiftCodeOutput', 'GiftPoolOutput', 'GiftTemplateOutput'];
         foreach ($elements as $element) {
             /** @var Field $field */
             foreach ($this->config->getConfigElement($element)->getFields() as $field) {

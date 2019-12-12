@@ -20,13 +20,13 @@
  */
 declare(strict_types=1);
 
-namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
+namespace Mageplaza\GiftCardGraphQl\Model\Resolver\Save;
 
 /**
- * Class GiftTemplates
- * @package Mageplaza\GiftCardGraphQl\Model\Resolver
+ * Class GiftCode
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver\Save
  */
-class GiftTemplates extends AbstractResolver
+class GiftCode extends AbstractResolver
 {
-    protected $_type = 'mpGiftTemplate';
+    protected $_type = 'mpGiftCode';
 }

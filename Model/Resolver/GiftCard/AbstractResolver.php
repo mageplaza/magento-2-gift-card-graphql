@@ -20,34 +20,32 @@
  */
 declare(strict_types=1);
 
-namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
+namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Mageplaza\GiftCardGraphQl\Model\Resolver\Filter\Query\Filter;
+use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
 
 /**
  * Class AbstractResolver
- * @package Mageplaza\GiftCardGraphQl\Model\Resolver
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard
  */
 abstract class AbstractResolver implements ResolverInterface
 {
-    protected $_type = '';
-
     /**
-     * @var Filter
+     * @var GiftCardManagementInterface
      */
-    protected $filter;
+    protected $giftCardManagement;
 
     /**
      * AbstractResolver constructor.
      *
-     * @param Filter $filter
+     * @param GiftCardManagementInterface $giftCardManagement
      */
-    public function __construct(Filter $filter)
+    public function __construct(GiftCardManagementInterface $giftCardManagement)
     {
-        $this->filter = $filter;
+        $this->giftCardManagement = $giftCardManagement;
     }
 
     /**

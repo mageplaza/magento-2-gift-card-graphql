@@ -25,29 +25,27 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Mageplaza\GiftCardGraphQl\Model\Resolver\Filter\Query\Filter;
+use Mageplaza\GiftCard\Api\GiftPoolManagementInterface;
 
 /**
- * Class AbstractResolver
+ * Class GiftPoolGenerate
  * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
-abstract class AbstractResolver implements ResolverInterface
+class GiftPoolGenerate implements ResolverInterface
 {
-    protected $_type = '';
-
     /**
-     * @var Filter
+     * @var GiftPoolManagementInterface
      */
-    protected $filter;
+    private $giftPoolManagement;
 
     /**
      * AbstractResolver constructor.
      *
-     * @param Filter $filter
+     * @param GiftPoolManagementInterface $giftPoolManagement
      */
-    public function __construct(Filter $filter)
+    public function __construct(GiftPoolManagementInterface $giftPoolManagement)
     {
-        $this->filter = $filter;
+        $this->giftPoolManagement = $giftPoolManagement;
     }
 
     /**
@@ -55,13 +53,6 @@ abstract class AbstractResolver implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        return $this->handleArgs($args);
+        return $this->giftPoolManagement->generate($args['id'], $args['pattern'], $args['qty']);
     }
-
-    /**
-     * @param array $args
-     *
-     * @return mixed
-     */
-    abstract protected function handleArgs(array $args);
 }
