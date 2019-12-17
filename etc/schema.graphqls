@@ -153,9 +153,6 @@ input GiftCodeInput {
     template_id: String @doc(description: "Template id that is used for the gift card.")
     image: String @doc(description: "Relative image path.")
     template_fields: String @doc(description: "Json encoded template fields.")
-    #    customer_ids: String
-    #    order_item_id: String
-    #    order_increment_id: String
     delivery_method: String @doc(description: "Delivery methods, values: 1 - Email, 2 - Text Message, 3 - Print At Home, 4 - Post Office.")
     delivery_address: String @doc(description: "Delivery address that includes email or phone number.")
     is_sent: String @doc(description: "Is gift card sent to recipient?")

@@ -18,6 +18,7 @@
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
+
 declare(strict_types=1);
 
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver\Save;
