@@ -32,7 +32,7 @@ type Query {
         filter: GiftPoolFilterInput! @doc(description: "Identifies which fields to search for and return."),
         pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. The default value is 20."),
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
-    ): GiftPoolListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftPool") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
+    ): GiftPoolListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GetList\\GiftPool") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
     mpGiftTemplate (
         id: Int! @doc(description: "Specifies the gift template id to search for."),
     ): GiftTemplateOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftTemplate") @doc(description: "Searches for an item that matches the id.")
@@ -40,7 +40,7 @@ type Query {
         filter: GiftTemplateFilterInput! @doc(description: "Identifies which fields to search for and return."),
         pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. The default value is 20."),
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1.")
-    ): GiftTemplateListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Get\\GiftTemplate") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
+    ): GiftTemplateListOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GetList\\GiftTemplate") @doc(description: "Searches for items that match the criteria specified in the search and filter attributes.")
 }
 
 type Mutation {
