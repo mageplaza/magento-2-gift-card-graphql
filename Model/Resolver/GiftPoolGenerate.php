@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\GiftCard\Api\GiftPoolManagementInterface;
+use Mageplaza\GiftCard\Helper\Data;
 
 /**
  * Class GiftPoolGenerate
@@ -40,13 +42,22 @@ class GiftPoolGenerate implements ResolverInterface
     private $giftPoolManagement;
 
     /**
+     * @var Data
+     */
+    private $helper;
+
+    /**
      * AbstractResolver constructor.
      *
      * @param GiftPoolManagementInterface $giftPoolManagement
+     * @param Data $helper
      */
-    public function __construct(GiftPoolManagementInterface $giftPoolManagement)
-    {
+    public function __construct(
+        GiftPoolManagementInterface $giftPoolManagement,
+        Data $helper
+    ) {
         $this->giftPoolManagement = $giftPoolManagement;
+        $this->helper             = $helper;
     }
 
     /**
@@ -54,6 +65,10 @@ class GiftPoolGenerate implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
+        if (!$this->helper->isEnabled()) {
+            throw new GraphQlInputException(__('The module is disabled'));
+        }
+
         return $this->giftPoolManagement->generate($args['id'], $args['pattern'], $args['qty']);
     }
 }

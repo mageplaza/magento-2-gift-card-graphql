@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
+use Mageplaza\GiftCard\Helper\Data;
 
 /**
  * Class AbstractResolver
@@ -40,13 +42,22 @@ abstract class AbstractResolver implements ResolverInterface
     protected $giftCardManagement;
 
     /**
+     * @var Data
+     */
+    private $helper;
+
+    /**
      * AbstractResolver constructor.
      *
      * @param GiftCardManagementInterface $giftCardManagement
+     * @param Data $helper
      */
-    public function __construct(GiftCardManagementInterface $giftCardManagement)
-    {
+    public function __construct(
+        GiftCardManagementInterface $giftCardManagement,
+        Data $helper
+    ) {
         $this->giftCardManagement = $giftCardManagement;
+        $this->helper             = $helper;
     }
 
     /**
@@ -54,6 +65,10 @@ abstract class AbstractResolver implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
+        if (!$this->helper->isEnabled()) {
+            throw new GraphQlInputException(__('The module is disabled'));
+        }
+
         return $this->handleArgs($args);
     }
 

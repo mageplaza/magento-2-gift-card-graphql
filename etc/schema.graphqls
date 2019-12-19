@@ -64,9 +64,9 @@ type Mutation {
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\Delete\\GiftTemplate") @doc(description: "Delete gift template")
     mpGiftPoolGenerate (
         id: Int! @doc(description: "Specifies the gift template id to search for and generate."),
-        pattern: String! @doc(description: "Specifies the gift code pattern."),
+        pattern: String = "[4AN]-[4A]-[4N]" @doc(description: "Specifies the gift code pattern."),
         qty: Int = 1 @doc(description: "How many gift codes will be generated.")
-    ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftPoolGenerate") @doc(description: "Generate gift code from gift pool")
+    ): [String] @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftPoolGenerate") @doc(description: "Generate gift code from gift pool")
     mpGiftCardSetCode (
         cartId: Int! @doc(description: "Specifies the quote id to search for and apply the gift code."),
         code: String! @doc(description: "Specifies what gift code will be applied.")
