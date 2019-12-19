@@ -152,7 +152,7 @@ input GiftCodeInput {
     pool_id: String @doc(description: "Pool id that the gift code belongs to.")
     template_id: String @doc(description: "Template id that is used for the gift card.")
     image: String @doc(description: "Relative image path.")
-    template_fields: String @doc(description: "Json encoded template fields.")
+    template_fields: GiftCardTemplateFieldsInput @doc(description: "Json encoded template fields.")
     delivery_method: String @doc(description: "Delivery methods, values: 1 - Email, 2 - Text Message, 3 - Print At Home, 4 - Post Office.")
     delivery_address: String @doc(description: "Delivery address that includes email or phone number.")
     is_sent: String @doc(description: "Is gift card sent to recipient?")
@@ -173,7 +173,7 @@ input GiftPoolInput {
     store_id: String @doc(description: "Specifies which store the gift card is available at.")
     template_id: String @doc(description: "Template id that is used for the gift card.")
     image: String @doc(description: "Relative image path.")
-    template_fields: String @doc(description: "Json encoded template fields.")
+    template_fields: GiftCardTemplateFieldsInput @doc(description: "Json encoded template fields.")
     expired_at: String @doc(description: "The date that the gift code is expired.")
 }
 
@@ -262,6 +262,12 @@ type GiftTemplateOutput {
     note: String @doc(description: "Note that can be displayed on the gift template.")
     images: String @doc(description: "Array contains relative path, label and position of images belonged to the gift template.")
     created_at: String @doc(description: "Timestamp indicating when the entity was created.")
+}
+
+input GiftCardTemplateFieldsInput {
+    sender: String @doc(description: "Sender who gifts the gift card. This sender's name will be displayed on the gift card.")
+    recipient: String @doc(description: "Recipient who receives the gift card. This recipient's name will be displayed on the gift card.")
+    message: String @doc(description: "Message that is displayed on the gift card.")
 }
 
 type GiftCardTemplateFields {

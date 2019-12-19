@@ -32,6 +32,7 @@ use Mageplaza\GiftCard\Api\Data\GiftTemplateInterface;
 use Mageplaza\GiftCard\Api\GiftCodeManagementInterface;
 use Mageplaza\GiftCard\Api\GiftPoolManagementInterface;
 use Mageplaza\GiftCard\Api\GiftTemplateManagementInterface;
+use Mageplaza\GiftCard\Helper\Data;
 use Mageplaza\GiftCard\Model\GiftCard as GiftCardModel;
 use Mageplaza\GiftCard\Model\GiftCardFactory;
 use Mageplaza\GiftCard\Model\Pool as PoolModel;
@@ -182,6 +183,10 @@ class Filter
      */
     public function saveEntity($data, $type)
     {
+        if (isset($data['template_fields'])) {
+            $data['template_fields'] = Data::jsonEncode($data['template_fields']);
+        }
+
         switch ($type) {
             case 'mpGiftCode':
                 $entity = $this->giftCardFactory->create()->setData($data);
