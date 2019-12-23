@@ -42,7 +42,7 @@ class Redeem extends AbstractResolver
     protected function handleArgs(array $args)
     {
         try {
-            return $this->giftCardManagement->redeem($args['customer_id'], $args['code']);
+            return $this->giftCardManagement->redeem($args['customerId'], $args['code']);
         } catch (Exception $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         }

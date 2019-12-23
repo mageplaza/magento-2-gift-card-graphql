@@ -42,7 +42,7 @@ class SetGiftCredit extends AbstractResolver
     protected function handleArgs(array $args)
     {
         try {
-            return $this->giftCardManagement->credit($args['cart_id'], $args['amount']);
+            return $this->giftCardManagement->credit($args['cartId'], $args['amount']);
         } catch (CouldNotSaveException $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         } catch (NoSuchEntityException $e) {

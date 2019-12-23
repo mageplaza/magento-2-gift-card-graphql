@@ -42,7 +42,7 @@ class SetGiftCode extends AbstractResolver
     protected function handleArgs(array $args)
     {
         try {
-            return $this->giftCardManagement->set($args['cart_id'], $args['code']);
+            return $this->giftCardManagement->set($args['cartId'], $args['code']);
         } catch (CouldNotSaveException $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         } catch (NoSuchEntityException $e) {

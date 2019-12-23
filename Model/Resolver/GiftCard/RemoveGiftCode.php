@@ -42,7 +42,7 @@ class RemoveGiftCode extends AbstractResolver
     protected function handleArgs(array $args)
     {
         try {
-            return $this->giftCardManagement->remove($args['cart_id'], $args['code']);
+            return $this->giftCardManagement->remove($args['cartId'], $args['code']);
         } catch (CouldNotDeleteException $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         } catch (NoSuchEntityException $e) {
