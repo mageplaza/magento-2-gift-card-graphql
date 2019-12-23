@@ -69,6 +69,14 @@ class GiftPoolGenerate implements ResolverInterface
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
+        if ($args['pattern'] === '') {
+            throw new GraphQlInputException(__('pattern value must not be empty.'));
+        }
+
+        if ($args['qty'] < 0) {
+            throw new GraphQlInputException(__('qty value must be greater than 0.'));
+        }
+
         return $this->giftPoolManagement->generate($args['id'], $args['pattern'], $args['qty']);
     }
 }
