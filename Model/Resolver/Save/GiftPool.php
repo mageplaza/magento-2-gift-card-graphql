@@ -29,5 +29,13 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\Save;
  */
 class GiftPool extends AbstractResolver
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = 'Mageplaza_GiftCard::pool';
+
+    /**
+     * @var string
+     */
     protected $_type = 'mpGiftPool';
 }

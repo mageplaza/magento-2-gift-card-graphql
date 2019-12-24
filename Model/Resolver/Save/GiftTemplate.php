@@ -29,5 +29,13 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\Save;
  */
 class GiftTemplate extends AbstractResolver
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = 'Mageplaza_GiftCard::template';
+
+    /**
+     * @var string
+     */
     protected $_type = 'mpGiftTemplate';
 }

@@ -29,6 +29,7 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\GiftCard\Api\GiftPoolManagementInterface;
 use Mageplaza\GiftCard\Helper\Data;
+use Mageplaza\GiftCardGraphQl\Helper\Auth;
 
 /**
  * Class GiftPoolGenerate
@@ -36,6 +37,11 @@ use Mageplaza\GiftCard\Helper\Data;
  */
 class GiftPoolGenerate implements ResolverInterface
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = 'Mageplaza_GiftCard::pool';
+
     /**
      * @var GiftPoolManagementInterface
      */
@@ -47,17 +53,25 @@ class GiftPoolGenerate implements ResolverInterface
     private $helper;
 
     /**
+     * @var Auth
+     */
+    private $auth;
+
+    /**
      * AbstractResolver constructor.
      *
      * @param GiftPoolManagementInterface $giftPoolManagement
      * @param Data $helper
+     * @param Auth $auth
      */
     public function __construct(
         GiftPoolManagementInterface $giftPoolManagement,
-        Data $helper
+        Data $helper,
+        Auth $auth
     ) {
         $this->giftPoolManagement = $giftPoolManagement;
         $this->helper             = $helper;
+        $this->auth               = $auth;
     }
 
     /**
@@ -67,6 +81,10 @@ class GiftPoolGenerate implements ResolverInterface
     {
         if (!$this->helper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
+        }
+
+        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
+            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
         }
 
         if ($args['pattern'] === '') {

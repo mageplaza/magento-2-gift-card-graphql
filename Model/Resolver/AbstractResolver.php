@@ -28,6 +28,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\GiftCard\Helper\Data;
+use Mageplaza\GiftCardGraphQl\Helper\Auth;
 use Mageplaza\GiftCardGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
@@ -36,6 +37,14 @@ use Mageplaza\GiftCardGraphQl\Model\Resolver\Filter\Query\Filter;
  */
 abstract class AbstractResolver implements ResolverInterface
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = '';
+
+    /**
+     * @var string
+     */
     protected $_type = '';
 
     /**
@@ -49,17 +58,25 @@ abstract class AbstractResolver implements ResolverInterface
     private $helper;
 
     /**
+     * @var Auth
+     */
+    private $auth;
+
+    /**
      * AbstractResolver constructor.
      *
      * @param Filter $filter
      * @param Data $helper
+     * @param Auth $auth
      */
     public function __construct(
         Filter $filter,
-        Data $helper
+        Data $helper,
+        Auth $auth
     ) {
         $this->filter = $filter;
         $this->helper = $helper;
+        $this->auth   = $auth;
     }
 
     /**
@@ -69,6 +86,10 @@ abstract class AbstractResolver implements ResolverInterface
     {
         if (!$this->helper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
+        }
+
+        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
+            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
         }
 
         return $this->handleArgs($args);

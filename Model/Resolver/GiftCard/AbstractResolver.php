@@ -29,6 +29,7 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
 use Mageplaza\GiftCard\Helper\Data;
+use Mageplaza\GiftCardGraphQl\Helper\Auth;
 
 /**
  * Class AbstractResolver
@@ -36,6 +37,11 @@ use Mageplaza\GiftCard\Helper\Data;
  */
 abstract class AbstractResolver implements ResolverInterface
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = 'Mageplaza_GiftCard::code';
+
     /**
      * @var GiftCardManagementInterface
      */
@@ -47,17 +53,25 @@ abstract class AbstractResolver implements ResolverInterface
     private $helper;
 
     /**
+     * @var Auth
+     */
+    private $auth;
+
+    /**
      * AbstractResolver constructor.
      *
      * @param GiftCardManagementInterface $giftCardManagement
      * @param Data $helper
+     * @param Auth $auth
      */
     public function __construct(
         GiftCardManagementInterface $giftCardManagement,
-        Data $helper
+        Data $helper,
+        Auth $auth
     ) {
         $this->giftCardManagement = $giftCardManagement;
         $this->helper             = $helper;
+        $this->auth               = $auth;
     }
 
     /**
@@ -67,6 +81,10 @@ abstract class AbstractResolver implements ResolverInterface
     {
         if (!$this->helper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
+        }
+
+        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
+            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
         }
 
         return $this->handleArgs($args);

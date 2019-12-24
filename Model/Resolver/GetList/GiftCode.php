@@ -29,5 +29,13 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GetList;
  */
 class GiftCode extends AbstractResolver
 {
+    /**
+     * @var string
+     */
+    protected $_aclResource = 'Mageplaza_GiftCard::code';
+
+    /**
+     * @var string
+     */
     protected $_type = 'mpGiftCode';
 }
