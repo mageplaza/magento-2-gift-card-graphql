@@ -1,0 +1,7 @@
+"The module is disabled","The module is disabled"
+"The consumer isn't authorized to access %1","The consumer isn't authorized to access %1"
+"currentPage value must be greater than 0.","currentPage value must be greater than 0."
+"pageSize value must be greater than 0.","pageSize value must be greater than 0."
+"currentPage value %1 specified is greater than the %2 page(s) available.","currentPage value %1 specified is greater than the %2 page(s) available."
+"pattern value must not be empty.","pattern value must not be empty."
+"qty value must be greater than 0.","qty value must be greater than 0."
