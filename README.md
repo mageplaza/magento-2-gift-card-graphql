@@ -1,4 +1,4 @@
-# Gift Card GraphQL
+# Magento 2 Gift Card GraphQL / PWA (FREE)
 
 Mageplaza Gift Card Extension supports getting and pushing data on the website with GraphQl.
 
@@ -17,7 +17,7 @@ php bin/magento setup:static-content:deploy
 
 To start working with **Gift Card GraphQl** in Magento, you need to:
 
-- Use Magento 2.3.x. Return your site to developer mode
+- Use Magento 2.3.x or higher. Return your site to developer mode
 - Install [chrome extension](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij?hl=en) (currently does not support other browsers)
 - Set **GraphQL endpoint** as `http://<magento2-3-server>/graphql` in url box, click **Set endpoint**. (e.g. http://develop.mageplaza.com/graphql/ce232/graphql)
 
