@@ -18,87 +18,64 @@
  * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
-
 declare(strict_types=1);
 
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
+use Exception;
+use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\GraphQl\Model\Query\ContextInterface;
+use Mageplaza\GiftCard\Api\GiftTemplateManagementInterface;
 use Mageplaza\GiftCard\Helper\Data;
-use Mageplaza\GiftCardGraphQl\Helper\Auth;
-use Mageplaza\GiftCardGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
- * Class AbstractResolver
+ * Class UploadImage
  * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
-abstract class AbstractResolver implements ResolverInterface
+class UploadImage implements ResolverInterface
 {
-    /**
-     * @var string
-     */
-    protected $_aclResource = '';
-
-    /**
-     * @var string
-     */
-    protected $_type = '';
-
-    /**
-     * @var Filter
-     */
-    protected $filter;
-
     /**
      * @var Data
      */
-    private $helper;
+    private $helperData;
 
     /**
-     * @var Auth
+     * @var GiftTemplateManagementInterface
      */
-    private $auth;
+    private $giftTemplateManagement;
 
     /**
-     * AbstractResolver constructor.
+     * UploadImage constructor.
      *
-     * @param Filter $filter
-     * @param Data $helper
-     * @param Auth $auth
+     * @param Data $helperData
+     * @param GiftTemplateManagementInterface $giftTemplateManagement
      */
     public function __construct(
-        Filter $filter,
-        Data $helper,
-        Auth $auth
+        Data $helperData,
+        GiftTemplateManagementInterface $giftTemplateManagement
     ) {
-        $this->filter = $filter;
-        $this->helper = $helper;
-        $this->auth   = $auth;
+        $this->helperData      = $helperData;
+        $this->giftTemplateManagement = $giftTemplateManagement;
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritdoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        if (!$this->helper->isEnabled()) {
+        if (!$this->helperData->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
-        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
-            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
+        try {
+            return $this->giftTemplateManagement->uploadImage($args);
+        } catch (Exception $e) {
+            throw new GraphQlInputException(__($e->getMessage()));
         }
-
-        return $this->handleArgs($args);
     }
-
-    /**
-     * @param array $args
-     *
-     * @return mixed
-     */
-    abstract protected function handleArgs(array $args);
 }

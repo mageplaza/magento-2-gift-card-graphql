@@ -25,7 +25,9 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
+use Magento\GraphQl\Model\Query\ContextInterface;
 
 /**
  * Class SetGiftCredit
@@ -37,10 +39,15 @@ class SetGiftCredit extends AbstractResolver
      * @param array $args
      *
      * @return bool
-     * @throws GraphQlInputException
+     * @throws GraphQlInputException|GraphQlAuthorizationException
      */
     protected function handleArgs(array $args)
     {
+        /** @var ContextInterface $context */
+        if ($context->getExtensionAttributes()->getIsCustomer() === false) {
+            throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
+        }
+
         try {
             return $this->giftCardManagement->credit($args['cartId'], $args['amount']);
         } catch (CouldNotSaveException $e) {

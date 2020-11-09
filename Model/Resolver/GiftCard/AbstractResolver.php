@@ -27,9 +27,9 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\QuoteGraphQl\Model\Cart\GetCartForUser;
 use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
 use Mageplaza\GiftCard\Helper\Data;
-use Mageplaza\GiftCardGraphQl\Helper\Auth;
 
 /**
  * Class AbstractResolver
@@ -50,28 +50,28 @@ abstract class AbstractResolver implements ResolverInterface
     /**
      * @var Data
      */
-    private $helper;
+    protected $helper;
 
     /**
-     * @var Auth
+     * @var GetCartForUser
      */
-    private $auth;
+    private $getCartForUser;
 
     /**
      * AbstractResolver constructor.
      *
      * @param GiftCardManagementInterface $giftCardManagement
      * @param Data $helper
-     * @param Auth $auth
+     * @param GetCartForUser $getCartForUser
      */
     public function __construct(
         GiftCardManagementInterface $giftCardManagement,
         Data $helper,
-        Auth $auth
+        GetCartForUser $getCartForUser
     ) {
         $this->giftCardManagement = $giftCardManagement;
         $this->helper             = $helper;
-        $this->auth               = $auth;
+        $this->getCartForUser = $getCartForUser;
     }
 
     /**
@@ -83,9 +83,14 @@ abstract class AbstractResolver implements ResolverInterface
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
-        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
-            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
+        if (!isset($args['cartId']) || empty($args['cartId'])) {
+            throw new GraphQlInputException(__('Required parameter "cartId" is missing'));
         }
+
+        $maskedCartId = $args['cartId'];
+        $storeId = (int)$context->getExtensionAttributes()->getStore()->getId();
+        $cart = $this->getCartForUser->execute($maskedCartId, $context->getUserId(), $storeId);
+        $args['cartId'] = $cart->getId();
 
         return $this->handleArgs($args);
     }

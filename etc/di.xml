@@ -30,4 +30,16 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\QuoteGraphQl\Model\Resolver\CartItemTypeResolver">
+        <arguments>
+            <argument name="supportedTypes" xsi:type="array">
+                <item name="mpgiftcard" xsi:type="string">MpGiftCardCartItem</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--Add gift card discount to cart prices (graphql)-->
+    <type name="Magento\QuoteGraphQl\Model\Resolver\CartPrices">
+        <plugin name="mp_gift_card_add_cart_prices" type="Mageplaza\GiftCardGraphQl\Plugin\QuoteGraphQl\Model\Resolver\CartPrices"/>
+    </type>
 </config>
