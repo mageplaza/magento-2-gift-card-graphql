@@ -21,7 +21,6 @@ type Query {
     mpGiftCardCheckCode (
         code: String! @doc(description: "Code")
     ): CheckGiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\CheckCode") @doc(description: "Check code information")
-    mpGiftCardProductConfig: MpGiftCardProduct @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductConfig") @doc(description: "Get Gift Card Product Page config data")
 }
 
 type Mutation {
