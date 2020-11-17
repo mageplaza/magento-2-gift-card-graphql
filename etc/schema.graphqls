@@ -196,6 +196,34 @@ type uploadMpGiftCardImageOutput {
     url: String
 }
 
+type Cart {
+    mp_giftcard_config: MpGiftCardConfig @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardConfig")
+}
+
+type MpGiftCardConfig {
+    enableGiftCard: Boolean
+    enableMultiple: Boolean
+    canShowDetail: Boolean
+    listGiftCard: [MpGiftCardList]
+    giftCardUsed: [MpGiftCardUsed]
+    enableGiftCredit: Boolean
+    balance: Float
+    maxUsed: Float
+    creditUsed: Float
+    css: [String]
+}
+
+type MpGiftCardList {
+    code: String
+    hidden: String
+    balance: Float
+}
+
+type MpGiftCardUsed {
+    code: String
+    amount: Float
+}
+
 type AddMpGiftCardProductsToCartOutput {
     cart: Cart!
 }

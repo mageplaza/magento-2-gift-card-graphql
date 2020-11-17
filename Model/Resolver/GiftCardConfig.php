@@ -21,52 +21,53 @@
 
 declare(strict_types=1);
 
-namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
+namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\QuoteGraphQl\Model\Cart\GetCartForUser;
-use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
+use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Model\Quote;
 use Mageplaza\GiftCard\Helper\Data;
+use Mageplaza\GiftCard\Plugin\Quote\CartTotalRepository;
 
 /**
  * Class AbstractResolver
  * @package Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard
  */
-abstract class AbstractResolver implements ResolverInterface
+class GiftCardConfig implements ResolverInterface
 {
-    /**
-     * @var GiftCardManagementInterface
-     */
-    protected $giftCardManagement;
-
     /**
      * @var Data
      */
     protected $helper;
 
     /**
-     * @var GetCartForUser
+     * @var CartRepositoryInterface
      */
-    private $getCartForUser;
+    private $quoteRepository;
 
     /**
-     * AbstractResolver constructor.
+     * @var CartTotalRepository
+     */
+    private $cartTotalRepository;
+
+    /**
+     * GiftCardConfig constructor.
      *
-     * @param GiftCardManagementInterface $giftCardManagement
      * @param Data $helper
-     * @param GetCartForUser $getCartForUser
+     * @param CartRepositoryInterface $quoteRepository
+     * @param CartTotalRepository $cartTotalRepository
      */
     public function __construct(
-        GiftCardManagementInterface $giftCardManagement,
         Data $helper,
-        GetCartForUser $getCartForUser
+        CartRepositoryInterface $quoteRepository,
+        CartTotalRepository $cartTotalRepository
     ) {
-        $this->giftCardManagement = $giftCardManagement;
-        $this->helper             = $helper;
-        $this->getCartForUser = $getCartForUser;
+        $this->helper              = $helper;
+        $this->quoteRepository     = $quoteRepository;
+        $this->cartTotalRepository = $cartTotalRepository;
     }
 
     /**
@@ -78,22 +79,9 @@ abstract class AbstractResolver implements ResolverInterface
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
-        if (!isset($args['cartId']) || empty($args['cartId'])) {
-            throw new GraphQlInputException(__('Required parameter "cartId" is missing'));
-        }
+        /** @var Quote $quote */
+        $quote = $this->quoteRepository->get($value['model']->getId());
 
-        $maskedCartId = $args['cartId'];
-        $storeId = (int)$context->getExtensionAttributes()->getStore()->getId();
-        $cart = $this->getCartForUser->execute($maskedCartId, $context->getUserId(), $storeId);
-        $args['cartId'] = $cart->getId();
-
-        return $this->handleArgs($args);
+        return $this->cartTotalRepository->getGiftCardConfig($quote);
     }
-
-    /**
-     * @param array $args
-     *
-     * @return mixed
-     */
-    abstract protected function handleArgs(array $args);
 }
