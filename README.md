@@ -25,8 +25,8 @@ To perform GraphQL queries in Magento, please do the following requirements:
 
 ## 3. Devdocs
 
-- [Gift Card API & examples](https://documenter.getpostman.com/view/10589000/T1DqgH2g?version=latest)
-- [Gift Card GraphQL & examples](https://documenter.getpostman.com/view/10589000/TVYJ5GmN)
+- [Gift Card API & examples](https://documenter.getpostman.com/view/10589000/SzYXWeVY)
+- [Gift Card GraphQL & examples](https://documenter.getpostman.com/view/10589000/TVK5bgJK#44580a6d-fdf4-4e4c-80ae-5245609dee7c)
 
 
 ## 4. Contribute to this module
