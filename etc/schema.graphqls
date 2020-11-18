@@ -29,15 +29,15 @@ type Mutation {
         credit_notification: Boolean @doc(description: "Update Balance Notification")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\SaveNotificationSettings") @doc(description: "Save Notification Setting")
     setMpGiftCardCodeToCart (
-        cartId: Int! @doc(description: "Specifies the quote id to search for and apply the gift code."),
+        cartId: String! @doc(description: "Specifies the quote id to search for and apply the gift code."),
         code: String! @doc(description: "Specifies what gift code will be applied.")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\SetGiftCode") @doc(description: "Apply gift card code")
     removeMpGiftCardCodeFromCart (
-        cartId: Int! @doc(description: "Specifies the quote id to search for and remove the gift code."),
+        cartId: String! @doc(description: "Specifies the quote id to search for and remove the gift code."),
         code: String! @doc(description: "Specifies what gift code will be removed")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\RemoveGiftCode") @doc(description: "Remove gift card code")
     setMpGiftCardCreditToCart (
-        cartId: Int! @doc(description: "Specifies the quote id to search for and set the gift credit."),
+        cartId: String! @doc(description: "Specifies the quote id to search for and set the gift credit."),
         amount: String! @doc(description: "Specifies how much gift credit will be applied.")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCard\\SetGiftCredit") @doc(description: "Apply gift credit amount")
     redeemMpGiftCard (
