@@ -25,6 +25,7 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\QuoteGraphQl\Model\Cart\GetCartForUser;
@@ -87,13 +88,14 @@ abstract class AbstractResolver implements ResolverInterface
         $cart = $this->getCartForUser->execute($maskedCartId, $context->getUserId(), $storeId);
         $args['cartId'] = $cart->getId();
 
-        return $this->handleArgs($args);
+        return $this->handleArgs($args, $context);
     }
 
     /**
      * @param array $args
+     * @param ContextInterface $context
      *
      * @return mixed
      */
-    abstract protected function handleArgs(array $args);
+    abstract protected function handleArgs(array $args, $context);
 }

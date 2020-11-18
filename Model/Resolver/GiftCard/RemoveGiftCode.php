@@ -26,6 +26,7 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 
 /**
  * Class RemoveGiftCode
@@ -35,11 +36,12 @@ class RemoveGiftCode extends AbstractResolver
 {
     /**
      * @param array $args
+     * @param ContextInterface $context
      *
      * @return bool
      * @throws GraphQlInputException
      */
-    protected function handleArgs(array $args)
+    protected function handleArgs(array $args, $context)
     {
         try {
             return $this->giftCardManagement->remove($args['cartId'], $args['code']);

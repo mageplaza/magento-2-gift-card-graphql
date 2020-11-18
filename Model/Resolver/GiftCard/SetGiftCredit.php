@@ -27,7 +27,7 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\GraphQl\Model\Query\ContextInterface;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 
 /**
  * Class SetGiftCredit
@@ -37,13 +37,13 @@ class SetGiftCredit extends AbstractResolver
 {
     /**
      * @param array $args
+     * @param ContextInterface $context
      *
      * @return bool
      * @throws GraphQlInputException|GraphQlAuthorizationException
      */
-    protected function handleArgs(array $args)
+    protected function handleArgs(array $args, $context)
     {
-        /** @var ContextInterface $context */
         if ($context->getExtensionAttributes()->getIsCustomer() === false) {
             throw new GraphQlAuthorizationException(__('The current customer isn\'t authorized.'));
         }
