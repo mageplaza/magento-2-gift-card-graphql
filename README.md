@@ -122,5 +122,5 @@ You can create a pull request, and we will consider to merge your changes in the
 
 ## 5. Get support
 - Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any question. 
-- if you find this post helpful, please give it a **Star** ![star](https://i.imgur.com/S8e0ctO.png)
+- If you find this post helpful, please give it a **Star** ![star](https://i.imgur.com/S8e0ctO.png)
 
