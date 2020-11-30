@@ -34,7 +34,8 @@ use Mageplaza\GiftCard\Helper\Product as ProductHelper;
 use Mageplaza\GiftCard\Model\Product\Type\GiftCard as Type;
 
 /**
- * @inheritdoc
+ * Class GiftCardProductInformation
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
 class GiftCardProductInformation implements ResolverInterface
 {

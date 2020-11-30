@@ -67,7 +67,7 @@ abstract class AbstractResolver implements ResolverInterface
     ) {
         $this->giftCardManagement = $giftCardManagement;
         $this->helper             = $helper;
-        $this->getCartForUser = $getCartForUser;
+        $this->getCartForUser     = $getCartForUser;
     }
 
     /**

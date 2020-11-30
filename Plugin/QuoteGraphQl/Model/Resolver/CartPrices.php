@@ -27,8 +27,8 @@ use Magento\QuoteGraphQl\Model\Resolver\CartPrices as SourceCartPrices;
 use Mageplaza\GiftCard\Helper\Checkout as GiftCardCheckoutHelper;
 
 /**
- * Class Builder
- * @package Mageplaza\GiftCard\Plugin\Controller\Product
+ * Class CartPrices
+ * @package Mageplaza\GiftCardGraphQl\Plugin\QuoteGraphQl\Model\Resolver
  */
 class CartPrices
 {

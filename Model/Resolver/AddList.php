@@ -55,7 +55,7 @@ class AddList implements ResolverInterface
     private $giftCardManagement;
 
     /**
-     * Redeem constructor.
+     * AddList constructor.
      *
      * @param GetCustomer $getCustomer
      * @param Product $productHelper

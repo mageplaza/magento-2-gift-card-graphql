@@ -35,7 +35,8 @@ use Mageplaza\GiftCard\Model\Source\Status;
 use Mageplaza\GiftCard\Model\TemplateFactory;
 
 /**
- * @inheritdoc
+ * Class GiftCardProductTemplate
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
 class GiftCardProductTemplate implements ResolverInterface
 {

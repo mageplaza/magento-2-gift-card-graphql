@@ -33,8 +33,8 @@ use Mageplaza\GiftCard\Helper\Data;
 use Mageplaza\GiftCard\Plugin\Quote\CartTotalRepository;
 
 /**
- * Class AbstractResolver
- * @package Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard
+ * Class GiftCardConfig
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
 class GiftCardConfig implements ResolverInterface
 {

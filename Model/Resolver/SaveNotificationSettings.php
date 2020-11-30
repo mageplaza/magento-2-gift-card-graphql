@@ -35,7 +35,8 @@ use Mageplaza\GiftCard\Helper\Product as ProductHelper;
 use Mageplaza\GiftCard\Model\CreditFactory;
 
 /**
- * @inheritdoc
+ * Class SaveNotificationSettings
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
 class SaveNotificationSettings implements ResolverInterface
 {

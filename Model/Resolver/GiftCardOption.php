@@ -14,7 +14,8 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Quote\Model\Quote\Item;
 
 /**
- * Resolver for bundle product options
+ * Class GiftCardOption
+ * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
 class GiftCardOption implements ResolverInterface
 {

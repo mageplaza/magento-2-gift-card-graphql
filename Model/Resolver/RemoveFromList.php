@@ -55,7 +55,7 @@ class RemoveFromList implements ResolverInterface
     private $giftCardManagement;
 
     /**
-     * Redeem constructor.
+     * RemoveFromList constructor.
      *
      * @param GetCustomer $getCustomer
      * @param Product $productHelper

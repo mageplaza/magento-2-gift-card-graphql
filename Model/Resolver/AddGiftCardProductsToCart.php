@@ -46,6 +46,8 @@ class AddGiftCardProductsToCart implements ResolverInterface
     private $addProductsToCart;
 
     /**
+     * AddGiftCardProductsToCart constructor.
+     *
      * @param GetCartForUser $getCartForUser
      * @param AddProductsToCart $addProductsToCart
      */
