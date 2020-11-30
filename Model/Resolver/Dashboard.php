@@ -23,12 +23,11 @@ declare(strict_types=1);
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
+use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\CustomerGraphQl\Model\Customer\ExtractCustomerData;
-use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
+use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\GraphQl\Model\Query\ContextInterface;
 use Mageplaza\GiftCard\Helper\Product;
 
@@ -58,7 +57,7 @@ class Dashboard implements ResolverInterface
         GetCustomer $getCustomer,
         Product $productHelper
     ) {
-        $this->getCustomer = $getCustomer;
+        $this->getCustomer   = $getCustomer;
         $this->productHelper = $productHelper;
     }
 

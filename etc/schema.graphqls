@@ -25,7 +25,7 @@ type Query {
 
 type Mutation {
     saveMpGiftCardDashBoardNotificationSettings(
-        giftcard_notification: Boolean @doc(description: "Enable/Disalbe Gift Card Update Notification")
+        giftcard_notification: Boolean @doc(description: "Enable/Disable Gift Card Update Notification")
         credit_notification: Boolean @doc(description: "Update Balance Notification")
     ): Boolean @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\SaveNotificationSettings") @doc(description: "Save Notification Setting")
     setMpGiftCardCodeToCart (
@@ -231,12 +231,12 @@ type GiftCardRedeemDetail {
 }
 
 type MpGiftCardProduct implements ProductInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "MpGiftCardProduct defines basic features of a gift card product and its simple product variants") {
-    information: MpGiftCardProductInfo @doc(description: "Gift Card product infomation") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductInformation")
+    information: MpGiftCardProductInfo @doc(description: "Gift Card product information") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductInformation")
     template: [MpGiftCardProductTemplate] @doc(description: "An array of linked simple product items") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductTemplate")
 }
 
 type MpGiftCardProductInfo {
-    amounts: [MpGiftCardAmount] @doc(description: "An array of amount infomation")
+    amounts: [MpGiftCardAmount] @doc(description: "An array of amount information")
     delivery: [MpGiftCardDelivery] @doc(description: "An array of delivery method")
     currencyRate: Float
     enableDeliveryDate: Boolean

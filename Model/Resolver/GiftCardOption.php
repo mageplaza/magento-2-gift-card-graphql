@@ -11,6 +11,7 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\Quote\Model\Quote\Item;
 
 /**
  * Resolver for bundle product options
@@ -27,7 +28,7 @@ class GiftCardOption implements ResolverInterface
             throw new GraphQlInputException(__('Value must contain "model" property.'));
         }
 
-        /** @var \Magento\Quote\Model\Quote\Item $item */
+        /** @var Item $item */
         $item = $value['model'];
 
         return $item->getOptions();

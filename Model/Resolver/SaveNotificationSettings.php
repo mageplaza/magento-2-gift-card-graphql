@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
+use Exception;
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
@@ -106,7 +107,7 @@ class SaveNotificationSettings implements ResolverInterface
             }
 
             $customerCredit->save();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new GraphQlInputException(__($e->getMessage()));
         }
 

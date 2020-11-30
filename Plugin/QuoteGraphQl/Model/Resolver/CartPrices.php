@@ -50,6 +50,8 @@ class CartPrices
      * @param SourceCartPrices $subject
      * @param array $result
      * @param mixed ...$arg
+     *
+     * @return array
      */
     public function afterResolve(
         SourceCartPrices $subject,
