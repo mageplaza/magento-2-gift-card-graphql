@@ -13,7 +13,6 @@ When you give customers gift cards as discounts or coupon codes, customers can u
 With the flexibility to customize the gift card templates, Mageplaza Gift Card extension is a great tool to increase customer satisfaction and sales for online stores, especially during the holidays. 
 
 Notably, **Magento 2 Gift Card GraphQL is now available in Mageplaza Gift Card extension that adds GraphQL features.** This supports PWA compatibility. The extension now supports getting and pushing data on the website with GraphQl.
-
 ## 1. How to install
 
 Run the following command in Magento 2 root folder:
@@ -25,102 +24,28 @@ php bin/magento setup:static-content:deploy
 ```
 
 **Note:**
-Magento 2 Gift Card GraphQL requires installing [Mageplaza Gift Card](https://www.mageplaza.com/magento-2-gift-card-extension/) in your Magento installation. 
+Magento 2 Gift Card GraphQL requires installing [Mageplaza Gift Card](https://www.mageplaza.com/magento-2-gift-card-extension/) in your Magento installation.
 
 ## 2. How to use
 
-To start working with **Gift Card GraphQl** in Magento, you need to:
+To perform GraphQL queries in Magento, please do the following requirements:
 
-- Use Magento 2.3.x or higher. Return your site to developer mode
-- Install [chrome extension](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij?hl=en) (currently does not support other browsers)
-- Set **GraphQL endpoint** as `http://<magento2-3-server>/graphql` in url box, click **Set endpoint**. (e.g. http://develop.mageplaza.com/graphql/ce232/graphql)
-
-
-The module currently supports the following 6 types of queries and 10 types of mutations:
-
-- Query **mpGiftCode**: Support lookup Gift Code information by Gift Code ID.
-
-![](https://i.imgur.com/WTytIzV.png)
-
-- Query **mpGiftCodeList**: Support to look up Gift Code information according to certain conditions fields.
-
-![](https://i.imgur.com/pmDfbAP.png)
-![](https://i.imgur.com/oK0QOX6.png)
-
-- Query **mpGiftPool**: Support searching for Gift Pool information by Gift Pool ID.
-
-![](https://i.imgur.com/FXjSGQ4.png)
-
-- Query **mpGiftPoolList**: Support searching for Gift Pool information according to certain conditional fields.
-
-![](https://i.imgur.com/JMklFlG.png)
-
-- Query **mpGiftTemplate**: Support for looking up Template information by Gift Template ID.
-
-![](https://i.imgur.com/DZYohl6.png)
-
-- Query **mpGiftTemplateList**: Support searching for Gift Pool information according to certain conditional fields.
-
-![](https://i.imgur.com/lYi1aXt.png)
-
-- Mutation **mpGiftCodeSave**: Create/edit Gift Code. To edit an existing Gift Code, just input the value for the `giftcard_id` field corresponding to the gift code you want to edit.
-
-![](https://i.imgur.com/4TLFN9C.png)
-
-- Mutation **mpGiftCodeDelete**: Delete the Gift Code according to the corresponding Gift Code ID.
-
-![](https://i.imgur.com/gn30Wy9.png)
-
-- Mutation **mpGiftPoolSave**: Create new/edit Gift Pool. To edit an existing Gift Pool, just enter the value for the `pool_id` field corresponding to the gift pool you want to edit.
-
-![](https://i.imgur.com/CyOsMCo.png)
-
-- Mutation **mpGiftPoolDelete**: Delete Gift Pool by Gift Pool ID.
-
-![](https://i.imgur.com/LsOTYEA.png)
-
-- Mutation **mpGiftPoolGenerate**: Generate Gift Code for Gift Pool with corresponding ID.
-
-![](https://i.imgur.com/V7da98h.png)
-
-- Mutation **mpGiftTemplateSave**: Create/edit Gift Template. To edit an existing Gift Template, just input the value for the `template_id` field corresponding to the template you want to edit.
-
-![](https://i.imgur.com/rI1d53X.png)
-
-- Mutation **mpGiftTemplateDelete**: Delete Gift Template according to Gift Template ID.
-
-![](https://i.imgur.com/lDCqvJL.png)
-
-- Mutation **mpGiftCardRedeem**: Redeem Gift Code for customer with corresponding customerId.
-
-![](https://i.imgur.com/giqmWDT.png)
-
-- Mutation **mpGiftCardSetCode**: Apply Gift Code to cart according to the corresponding cartId.
-
-![](https://i.imgur.com/Hd3PSaW.png)
-
-- Mutation **mpGiftCardRemoveCode**: Cancel Gift Code is being applied to the cart according to the corresponding cartId.
-
-![](https://i.imgur.com/ig0rnKr.png)
-
-- Mutation **mpGiftCardSetCredit**: Apply Gift Credit to cart according to cartId and corresponding amount.
-
-![](https://i.imgur.com/Aqesczf.png)
+- Use Magento 2.3.x or higher. Set your site to [developer mode](https://www.mageplaza.com/devdocs/enable-disable-developer-mode-magento-2.html).
+- Set GraphQL endpoint as `http://<magento2-server>/graphql` in url box, click **Set endpoint**. 
+(e.g. `http://dev.site.com/graphql`)
+- To view the queries that the **Mageplaza Gift Card GraphQL** extension supports, you can look in `Docs > Query` in the right corner
 
 ## 3. Devdocs
-- [Magento 2 Gift Card API & examples](https://documenter.getpostman.com/view/10589000/SzYXWeVY?version=latest)
-- [Magento 2 Gift Card GraphQL & examples](https://documenter.getpostman.com/view/10589000/TVK5bgJK)
 
-Click on Run in Postman to add these collections to your workspace quickly.
+- [Gift Card API & examples](https://documenter.getpostman.com/view/10589000/SzYXWeVY)
+- [Gift Card GraphQL & examples](https://documenter.getpostman.com/view/10589000/TVK5bgJK#44580a6d-fdf4-4e4c-80ae-5245609dee7c)
 
-![Magento 2 blog graphql pwa](https://i.imgur.com/lhsXlUR.gif)
 
 ## 4. Contribute to this module
-Feel free to **Fork** and contribute to this module. 
 
-You can create a pull request, and we will consider to merge your changes in the main branch. 
+Feel free to **Fork** and contribute to this module and create a pull request so we will merge your changes main branch.
 
-## 5. Get support
-- Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any question. 
-- If you find this post helpful, please give it a **Star** ![star](https://i.imgur.com/S8e0ctO.png)
+## 5. Get Support
 
+- Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any further questions.
+- Like this project, Give us a **Star** ![star](https://i.imgur.com/S8e0ctO.png)

@@ -25,11 +25,12 @@ namespace Mageplaza\GiftCardGraphQl\Model\Resolver\GiftCard;
 
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\QuoteGraphQl\Model\Cart\GetCartForUser;
 use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
 use Mageplaza\GiftCard\Helper\Data;
-use Mageplaza\GiftCardGraphQl\Helper\Auth;
 
 /**
  * Class AbstractResolver
@@ -38,11 +39,6 @@ use Mageplaza\GiftCardGraphQl\Helper\Auth;
 abstract class AbstractResolver implements ResolverInterface
 {
     /**
-     * @var string
-     */
-    protected $_aclResource = 'Mageplaza_GiftCard::code';
-
-    /**
      * @var GiftCardManagementInterface
      */
     protected $giftCardManagement;
@@ -50,28 +46,28 @@ abstract class AbstractResolver implements ResolverInterface
     /**
      * @var Data
      */
-    private $helper;
+    protected $helper;
 
     /**
-     * @var Auth
+     * @var GetCartForUser
      */
-    private $auth;
+    private $getCartForUser;
 
     /**
      * AbstractResolver constructor.
      *
      * @param GiftCardManagementInterface $giftCardManagement
      * @param Data $helper
-     * @param Auth $auth
+     * @param GetCartForUser $getCartForUser
      */
     public function __construct(
         GiftCardManagementInterface $giftCardManagement,
         Data $helper,
-        Auth $auth
+        GetCartForUser $getCartForUser
     ) {
         $this->giftCardManagement = $giftCardManagement;
         $this->helper             = $helper;
-        $this->auth               = $auth;
+        $this->getCartForUser     = $getCartForUser;
     }
 
     /**
@@ -83,17 +79,23 @@ abstract class AbstractResolver implements ResolverInterface
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
-        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
-            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
+        if (!isset($args['cartId']) || empty($args['cartId'])) {
+            throw new GraphQlInputException(__('Required parameter "cartId" is missing'));
         }
 
-        return $this->handleArgs($args);
+        $maskedCartId = $args['cartId'];
+        $storeId = (int)$context->getExtensionAttributes()->getStore()->getId();
+        $cart = $this->getCartForUser->execute($maskedCartId, $context->getUserId(), $storeId);
+        $args['cartId'] = $cart->getId();
+
+        return $this->handleArgs($args, $context);
     }
 
     /**
      * @param array $args
+     * @param ContextInterface $context
      *
      * @return mixed
      */
-    abstract protected function handleArgs(array $args);
+    abstract protected function handleArgs(array $args, $context);
 }

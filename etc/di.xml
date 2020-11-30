@@ -21,13 +21,16 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesPool">
+    <type name="Magento\QuoteGraphQl\Model\Resolver\CartItemTypeResolver">
         <arguments>
-            <argument name="attributesInstances" xsi:type="array">
-                <item name="mpGiftCode" xsi:type="object">Mageplaza\GiftCardGraphQl\Model\Resolver\FilterArgument</item>
-                <item name="mpGiftPool" xsi:type="object">Mageplaza\GiftCardGraphQl\Model\Resolver\FilterArgument</item>
-                <item name="mpGiftTemplate" xsi:type="object">Mageplaza\GiftCardGraphQl\Model\Resolver\FilterArgument</item>
+            <argument name="supportedTypes" xsi:type="array">
+                <item name="mpgiftcard" xsi:type="string">MpGiftCardCartItem</item>
             </argument>
         </arguments>
+    </type>
+
+    <!--Add gift card discount to cart prices (graphql)-->
+    <type name="Magento\QuoteGraphQl\Model\Resolver\CartPrices">
+        <plugin name="mp_gift_card_add_cart_prices" type="Mageplaza\GiftCardGraphQl\Plugin\QuoteGraphQl\Model\Resolver\CartPrices"/>
     </type>
 </config>

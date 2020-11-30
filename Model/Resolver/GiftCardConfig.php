@@ -27,51 +27,47 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Mageplaza\GiftCard\Api\GiftPoolManagementInterface;
+use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Model\Quote;
 use Mageplaza\GiftCard\Helper\Data;
-use Mageplaza\GiftCardGraphQl\Helper\Auth;
+use Mageplaza\GiftCard\Plugin\Quote\CartTotalRepository;
 
 /**
- * Class GiftPoolGenerate
+ * Class GiftCardConfig
  * @package Mageplaza\GiftCardGraphQl\Model\Resolver
  */
-class GiftPoolGenerate implements ResolverInterface
+class GiftCardConfig implements ResolverInterface
 {
-    /**
-     * @var string
-     */
-    protected $_aclResource = 'Mageplaza_GiftCard::pool';
-
-    /**
-     * @var GiftPoolManagementInterface
-     */
-    private $giftPoolManagement;
-
     /**
      * @var Data
      */
-    private $helper;
+    protected $helper;
 
     /**
-     * @var Auth
+     * @var CartRepositoryInterface
      */
-    private $auth;
+    private $quoteRepository;
 
     /**
-     * AbstractResolver constructor.
+     * @var CartTotalRepository
+     */
+    private $cartTotalRepository;
+
+    /**
+     * GiftCardConfig constructor.
      *
-     * @param GiftPoolManagementInterface $giftPoolManagement
      * @param Data $helper
-     * @param Auth $auth
+     * @param CartRepositoryInterface $quoteRepository
+     * @param CartTotalRepository $cartTotalRepository
      */
     public function __construct(
-        GiftPoolManagementInterface $giftPoolManagement,
         Data $helper,
-        Auth $auth
+        CartRepositoryInterface $quoteRepository,
+        CartTotalRepository $cartTotalRepository
     ) {
-        $this->giftPoolManagement = $giftPoolManagement;
-        $this->helper             = $helper;
-        $this->auth               = $auth;
+        $this->helper              = $helper;
+        $this->quoteRepository     = $quoteRepository;
+        $this->cartTotalRepository = $cartTotalRepository;
     }
 
     /**
@@ -83,18 +79,9 @@ class GiftPoolGenerate implements ResolverInterface
             throw new GraphQlInputException(__('The module is disabled'));
         }
 
-        if (!$this->auth->isAllowed($args['accessToken'], $this->_aclResource)) {
-            throw new GraphQlInputException(__("The consumer isn't authorized to access %1", $this->_aclResource));
-        }
+        /** @var Quote $quote */
+        $quote = $this->quoteRepository->get($value['model']->getId());
 
-        if ($args['pattern'] === '') {
-            throw new GraphQlInputException(__('pattern value must not be empty.'));
-        }
-
-        if ($args['qty'] < 0) {
-            throw new GraphQlInputException(__('qty value must be greater than 0.'));
-        }
-
-        return $this->giftPoolManagement->generate($args['id'], $args['pattern'], $args['qty']);
+        return $this->cartTotalRepository->getGiftCardConfig($quote);
     }
 }
