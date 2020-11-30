@@ -1,4 +1,4 @@
-## Documentation
+## Documentation 
 
 - Installation guide: https://www.mageplaza.com/install-magento-2-extension/#solution-1-ready-to-paste
 - User Guide: https://docs.mageplaza.com/gift-card/index.html
