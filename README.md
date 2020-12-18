@@ -1,5 +1,7 @@
 # Magento 2 Gift Card GraphQL / PWA (FREE)
 
+**Magento 2 Gift Card GraphQL is now available in Mageplaza Gift Card extension that adds GraphQL features.** This supports PWA compatibility. The extension now supports getting and pushing data on the website with GraphQL.
+
 [Mageplaza Gift Card for Magento 2](https://www.mageplaza.com/magento-2-gift-card-extension/) helps online stores improve customer experience by giving customers gift cards and allowing them to send to others as gifts. 
 
 You can create unlimited gift cards and give away to your customers or use them for product promotion. An outstanding feature of this extension is that customers can also customize their gift cards by adding images and messages to the cards. This customization option allows customers to turn their gift cards into a more personalized and meaningful gift that might be given to their friends or beloved ones. 
@@ -12,7 +14,6 @@ When you give customers gift cards as discounts or coupon codes, customers can u
 
 With the flexibility to customize the gift card templates, Mageplaza Gift Card extension is a great tool to increase customer satisfaction and sales for online stores, especially during the holidays. 
 
-Notably, **Magento 2 Gift Card GraphQL is now available in Mageplaza Gift Card extension that adds GraphQL features.** This supports PWA compatibility. The extension now supports getting and pushing data on the website with GraphQl.
 ## 1. How to install
 
 Run the following command in Magento 2 root folder:
