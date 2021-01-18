@@ -104,7 +104,7 @@ class SaveNotificationSettings implements ResolverInterface
             }
 
             if (isset($args['giftcard_notification'])) {
-                $customerCredit->addData(['credit_notification' => $args['giftcard_notification']]);
+                $customerCredit->addData(['giftcard_notification' => $args['giftcard_notification']]);
             }
 
             $customerCredit->save();
