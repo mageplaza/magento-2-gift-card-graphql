@@ -52,6 +52,6 @@ class GiftCardOptionsDataProvider implements BuyRequestDataProviderInterface
      */
     public function execute(array $cartItemData): array
     {
-        return $this->arrayManager->get('giftcard_options', $cartItemData);
+        return $this->arrayManager->get('giftcard_options', $cartItemData) ?? [];
     }
 }
