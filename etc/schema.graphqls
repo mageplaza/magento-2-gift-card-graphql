@@ -111,7 +111,7 @@ type MpGiftCardConfig {
 type MpGiftCardList {
     code: String
     hidden: String
-    balance: Float
+    balance: String
 }
 
 type MpGiftCardUsed {

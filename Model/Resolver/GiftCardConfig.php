@@ -82,6 +82,6 @@ class GiftCardConfig implements ResolverInterface
         /** @var Quote $quote */
         $quote = $this->quoteRepository->get($value['model']->getId());
 
-        return $this->cartTotalRepository->getGiftCardConfig($quote);
+        return $this->cartTotalRepository->getGiftCardConfig($quote, true);
     }
 }
