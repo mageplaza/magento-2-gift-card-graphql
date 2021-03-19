@@ -141,6 +141,7 @@ type CheckGiftCodeOutput {
     status: String
     status_label: String
     expired_at: String
+    expired_at_formatted: String
 }
 
 type MpGiftCardDashboardConfigOutput {
