@@ -112,11 +112,15 @@ type MpGiftCardList {
     code: String
     hidden: String
     balance: String
+    status: String
+    expired_at: String
 }
 
 type MpGiftCardUsed {
     code: String
     amount: Float
+    status: String
+    expired_at: String
 }
 
 type AddMpGiftCardProductsToCartOutput {
