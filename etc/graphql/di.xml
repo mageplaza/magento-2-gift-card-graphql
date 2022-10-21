@@ -30,4 +30,11 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\UrlRewriteGraphQl\Model\RoutableInterfaceTypeResolver">
+        <arguments>
+            <argument name="productTypeNameResolvers" xsi:type="array">
+                <item name="configurable_product_type_resolver" xsi:type="object">Mageplaza\GiftCardGraphQl\Model\GiftCardProductTypeResolver</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

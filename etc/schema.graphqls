@@ -235,7 +235,7 @@ type GiftCardRedeemDetail {
     customer_balance: String @doc(description: "Customer's balance after redeeming gift code.")
 }
 
-type MpGiftCardProduct implements ProductInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "MpGiftCardProduct defines basic features of a gift card product and its simple product variants") {
+type MpGiftCardProduct implements ProductInterface, RoutableInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "MpGiftCardProduct defines basic features of a gift card product and its simple product variants") {
     information: MpGiftCardProductInfo @doc(description: "Gift Card product information") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductInformation")
     template: [MpGiftCardProductTemplate] @doc(description: "An array of linked simple product items") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductTemplate")
 }
