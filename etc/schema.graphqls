@@ -21,6 +21,9 @@ type Query {
     mpGiftCardCheckCode (
         code: String! @doc(description: "Code")
     ): CheckGiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\CheckCode") @doc(description: "Check code information")
+    mpGiftCardPreview(
+        input: MpGiftCardPreviewInput! @doc(description: "Product data")
+    ): String @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\PreviewEmail") @doc(description: "Get gift card preview")
 }
 
 type Mutation {
@@ -80,6 +83,17 @@ input MpGiftCardOptionInput {
     timezone: String
     image: String
     template: Int
+}
+
+input MpGiftCardPreviewInput {
+    balance: Float!
+    status: Int!
+    giftcode_pattern: String!
+    delivery_method: Int!
+    expire_after: Int
+    timezone: String
+    template_fields: String
+    template_id: Int
 }
 
 type uploadMpGiftCardImageOutput {
