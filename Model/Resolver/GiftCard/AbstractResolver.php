@@ -73,7 +73,7 @@ abstract class AbstractResolver implements ResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         if (!$this->helper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));

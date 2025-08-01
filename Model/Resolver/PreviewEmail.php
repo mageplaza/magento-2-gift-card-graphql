@@ -83,7 +83,7 @@ class PreviewEmail implements ResolverInterface
      * @inheritdoc
      * @throws Exception
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         $productData = $args['input'];
 

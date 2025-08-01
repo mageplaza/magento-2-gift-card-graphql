@@ -66,7 +66,7 @@ class GiftCardProductInformation implements ResolverInterface
     /**
      * @inheritdoc
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         $linkField = $this->metadataPool->getMetadata(ProductInterface::class)->getLinkField();
         if ($value['type_id'] !== Type::TYPE_GIFTCARD
