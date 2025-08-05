@@ -32,6 +32,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 
 /**
  * Class PreviewEmail
@@ -86,6 +87,26 @@ class PreviewEmail implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         $productData = $args['input'];
+
+        if ( $productData['balance'] <= 0) {
+            throw new GraphQlInputException(__('Balance must be greater than 0'));
+        }
+
+        if ( !in_array((int)$productData['status'], range(1, 6), true)) {
+            throw new GraphQlInputException(__('Status must be an integer between 1 and 6'));
+        }
+
+        if ( !is_string($productData['giftcode_pattern'])) {
+            throw new GraphQlInputException(__('Gift code pattern must be a non-empty string'));
+        }
+
+        if ( !in_array((int)$productData['delivery_method'], range(1, 4), true)) {
+            throw new GraphQlInputException(__('Delivery method must be an integer between 1 and 4'));
+        }
+
+        if (isset($productData['expire_after']) &&  (int)$productData['expire_after'] <= 0) {
+            throw new GraphQlInputException(__('Expire after must be a number greater than 0 if provided'));
+        }
 
         $giftCard = $this->giftCardFactory->create()->addData($productData);
         if (isset($productData['giftcode_pattern'])) {
