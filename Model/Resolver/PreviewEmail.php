@@ -96,7 +96,7 @@ class PreviewEmail implements ResolverInterface
             throw new GraphQlInputException(__('Status must be an integer between 1 and 6'));
         }
 
-        if ( !is_string($productData['giftcode_pattern'])) {
+        if ( !($productData['giftcode_pattern'])) {
             throw new GraphQlInputException(__('Gift code pattern must be a non-empty string'));
         }
 
