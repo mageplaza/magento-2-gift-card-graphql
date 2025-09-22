@@ -21,18 +21,18 @@
 
 namespace Mageplaza\GiftCardGraphQl\Model\Resolver;
 
+use DateTime;
+use DateTimeZone;
+use Exception;
 use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Mageplaza\GiftCard\Api\GiftCardManagementInterface;
 use Mageplaza\GiftCard\Helper\Data as HelperData;
 use Mageplaza\GiftCard\Model\GiftCardFactory;
 use Mageplaza\GiftCard\Model\Source\DeliveryMethods;
-use DateTime;
-use DateTimeZone;
-use Exception;
-use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
-use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 
 /**
  * Class PreviewEmail
@@ -88,23 +88,23 @@ class PreviewEmail implements ResolverInterface
     {
         $productData = $args['input'];
 
-        if ( $productData['balance'] <= 0) {
+        if ($productData['balance'] <= 0) {
             throw new GraphQlInputException(__('Balance must be greater than 0'));
         }
 
-        if ( !in_array((int)$productData['status'], range(1, 6), true)) {
+        if (!in_array((int) $productData['status'], range(1, 6), true)) {
             throw new GraphQlInputException(__('Status must be an integer between 1 and 6'));
         }
 
-        if ( !($productData['giftcode_pattern'])) {
+        if (!($productData['giftcode_pattern'])) {
             throw new GraphQlInputException(__('Gift code pattern must be a non-empty string'));
         }
 
-        if ( !in_array((int)$productData['delivery_method'], range(1, 4), true)) {
+        if (!in_array((int) $productData['delivery_method'], range(1, 4), true)) {
             throw new GraphQlInputException(__('Delivery method must be an integer between 1 and 4'));
         }
 
-        if (isset($productData['expire_after']) &&  (int)$productData['expire_after'] <= 0) {
+        if (isset($productData['expire_after']) && (int) $productData['expire_after'] <= 0) {
             throw new GraphQlInputException(__('Expire after must be a number greater than 0 if provided'));
         }
 
@@ -115,8 +115,10 @@ class PreviewEmail implements ResolverInterface
         $productData['expire_after'] = $productData['expire_after'] ?? 30;
         $productData['timezone']     = $productData['timezone'] ?? $this->timezone->getConfigTimezone();
         $timezone                    = new DateTimeZone($productData['timezone']);
-        $expiredAt                   = (new DateTime('+' . $productData['expire_after'] . ' day',
-            $timezone))->format('Y-m-d');
+        $expiredAt                   = (new DateTime(
+            '+' . $productData['expire_after'] . ' day',
+            $timezone
+        ))->format('Y-m-d');
         $giftCard->setExpiredAt($expiredAt);
 
         $deliveryMethod = (int) $giftCard->getDeliveryMethod();
@@ -126,7 +128,7 @@ class PreviewEmail implements ResolverInterface
         switch ($deliveryMethod) {
             case DeliveryMethods::METHOD_PRINT:
                 $params['is_print'] = true;
-            // no break
+                // no break
             case DeliveryMethods::METHOD_EMAIL:
                 $templateFields = $giftCard->getTemplateFields()
                     ? HelperData::jsonDecode($giftCard->getTemplateFields())
