@@ -110,7 +110,7 @@ class PreviewEmail implements ResolverInterface
 
         $giftCard = $this->giftCardFactory->create()->addData($productData);
         if (isset($productData['giftcode_pattern'])) {
-            $giftCard->setCode($productData['giftcode_pattern']);
+            $giftCard->setPattern($productData['giftcode_pattern']);
         }
         $productData['expire_after'] = $productData['expire_after'] ?? 30;
         $productData['timezone']     = $productData['timezone'] ?? $this->timezone->getConfigTimezone();
