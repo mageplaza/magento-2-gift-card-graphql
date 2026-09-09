@@ -5,3 +5,8 @@
 "Required parameter ""cartId"" is missing","Required parameter ""cartId"" is missing"
 "Value must contain ""model"" property.","Value must contain ""model"" property."
 "At least one of the two values [credit_notification, giftcard_notification] should be filled in","At least one of the two values [credit_notification, giftcard_notification] should be filled in"
+"Balance must be greater than 0","Balance must be greater than 0"
+"Status must be an integer between 1 and 6","Status must be an integer between 1 and 6"
+"Gift code pattern must be a non-empty string","Gift code pattern must be a non-empty string"
+"Delivery method must be an integer between 1 and 4","Delivery method must be an integer between 1 and 4"
+"Expire after must be a number greater than 0 if provided","Expire after must be a number greater than 0 if provided"

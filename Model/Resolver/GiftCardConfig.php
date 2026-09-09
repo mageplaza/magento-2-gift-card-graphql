@@ -73,7 +73,7 @@ class GiftCardConfig implements ResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         if (!$this->helper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
@@ -82,6 +82,6 @@ class GiftCardConfig implements ResolverInterface
         /** @var Quote $quote */
         $quote = $this->quoteRepository->get($value['model']->getId());
 
-        return $this->cartTotalRepository->getGiftCardConfig($quote);
+        return $this->cartTotalRepository->getGiftCardConfig($quote, true);
     }
 }

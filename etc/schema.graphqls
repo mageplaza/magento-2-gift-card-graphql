@@ -21,6 +21,9 @@ type Query {
     mpGiftCardCheckCode (
         code: String! @doc(description: "Code")
     ): CheckGiftCodeOutput @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\CheckCode") @doc(description: "Check code information")
+    mpGiftCardPreview(
+        input: MpGiftCardPreviewInput! @doc(description: "Product data")
+    ): String @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\PreviewEmail") @doc(description: "Get gift card preview")
 }
 
 type Mutation {
@@ -82,6 +85,17 @@ input MpGiftCardOptionInput {
     template: Int
 }
 
+input MpGiftCardPreviewInput {
+    balance: Float!
+    status: Int!
+    giftcode_pattern: String!
+    delivery_method: Int!
+    expire_after: Int
+    timezone: String
+    template_fields: String
+    template_id: Int
+}
+
 type uploadMpGiftCardImageOutput {
     name: String
     type: String
@@ -111,12 +125,16 @@ type MpGiftCardConfig {
 type MpGiftCardList {
     code: String
     hidden: String
-    balance: Float
+    balance: String
+    status: String
+    expired_at: String
 }
 
 type MpGiftCardUsed {
     code: String
     amount: Float
+    status: String
+    expired_at: String
 }
 
 type AddMpGiftCardProductsToCartOutput {
@@ -141,6 +159,7 @@ type CheckGiftCodeOutput {
     status: String
     status_label: String
     expired_at: String
+    expired_at_formatted: String
 }
 
 type MpGiftCardDashboardConfigOutput {
@@ -230,7 +249,7 @@ type GiftCardRedeemDetail {
     customer_balance: String @doc(description: "Customer's balance after redeeming gift code.")
 }
 
-type MpGiftCardProduct implements ProductInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "MpGiftCardProduct defines basic features of a gift card product and its simple product variants") {
+type MpGiftCardProduct implements ProductInterface, RoutableInterface, PhysicalProductInterface, CustomizableProductInterface @doc(description: "MpGiftCardProduct defines basic features of a gift card product and its simple product variants") {
     information: MpGiftCardProductInfo @doc(description: "Gift Card product information") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductInformation")
     template: [MpGiftCardProductTemplate] @doc(description: "An array of linked simple product items") @resolver(class: "Mageplaza\\GiftCardGraphQl\\Model\\Resolver\\GiftCardProductTemplate")
 }

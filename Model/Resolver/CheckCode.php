@@ -67,8 +67,8 @@ class CheckCode implements ResolverInterface
         Field $field,
         $context,
         ResolveInfo $info,
-        array $value = null,
-        array $args = null
+        ?array $value = null,
+        ?array $args = null
     ) {
         if (!$this->productHelper->isEnabled()) {
             throw new GraphQlInputException(__('The module is disabled'));
